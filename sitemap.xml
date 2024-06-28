@@ -173,24 +173,6 @@
   </url>
   
   <url>
-    <loc>https://nanian-233.github.io/box/nav/index.html</loc>
-    
-    <lastmod>2023-03-22</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://nanian-233.github.io/box/gallery/index.html</loc>
-    
-    <lastmod>2023-03-22</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
     <loc>https://nanian-233.github.io/box/animation/index.html</loc>
     
     <lastmod>2023-03-22</lastmod>
@@ -200,7 +182,7 @@
   </url>
   
   <url>
-    <loc>https://nanian-233.github.io/life/music/index.html</loc>
+    <loc>https://nanian-233.github.io/social/fcircle/index.html</loc>
     
     <lastmod>2023-03-22</lastmod>
     
@@ -209,25 +191,7 @@
   </url>
   
   <url>
-    <loc>https://nanian-233.github.io/personal/about/index.html</loc>
-    
-    <lastmod>2023-03-22</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://nanian-233.github.io/personal/bb/index.html</loc>
-    
-    <lastmod>2023-03-22</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://nanian-233.github.io/life/games/index.html</loc>
+    <loc>https://nanian-233.github.io/box/nav/index.html</loc>
     
     <lastmod>2023-03-22</lastmod>
     
@@ -254,6 +218,15 @@
   </url>
   
   <url>
+    <loc>https://nanian-233.github.io/box/gallery/index.html</loc>
+    
+    <lastmod>2023-03-22</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>https://nanian-233.github.io/site/census/index.html</loc>
     
     <lastmod>2023-03-22</lastmod>
@@ -263,7 +236,25 @@
   </url>
   
   <url>
-    <loc>https://nanian-233.github.io/social/fcircle/index.html</loc>
+    <loc>https://nanian-233.github.io/life/music/index.html</loc>
+    
+    <lastmod>2023-03-22</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://nanian-233.github.io/life/games/index.html</loc>
+    
+    <lastmod>2023-03-22</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://nanian-233.github.io/personal/bb/index.html</loc>
     
     <lastmod>2023-03-22</lastmod>
     
@@ -282,6 +273,15 @@
   
   <url>
     <loc>https://nanian-233.github.io/site/time/index.html</loc>
+    
+    <lastmod>2023-03-22</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://nanian-233.github.io/personal/about/index.html</loc>
     
     <lastmod>2023-03-22</lastmod>
     

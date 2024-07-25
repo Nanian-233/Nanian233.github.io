@@ -4,6 +4,33 @@
   
     
     <entry>
+      <title>PNG</title>
+      <link href="/posts/png.html"/>
+      <url>/posts/png.html</url>
+      
+        <content type="html"><![CDATA[<h2 id="结构">结构</h2><p>PNG由文件标志和3个以上的数据块构成<br><code>文件标志:89 50 4E 47 0D 0A 1A 0A</code><br><code>数据块(chunk)</code><br><img src="https://s2.loli.net/2024/07/25/G5qIxEwf4JmuLHW.png" alt=""><br>重点关注IHDR,IDAT,IEND</p><h3 id="exif信息">exif信息</h3><p>有时信息会藏于exif信息中,右键属性或者使用exiftool等工具查看文件exif信息</p><h2 id="HEX数据">HEX数据</h2><h3 id="直接嵌入">直接嵌入</h3><p>有时信息会以明文或密文形式藏于十六进制数据中,常放于文件尾后<br>使用winhex或010editor等十六进制数据查看工具获取信息<br><img src="https://s2.loli.net/2024/07/25/gDSqYXsWVZIfHhv.png" alt=""><br>此处的base64解密即可得到信息</p><h3 id="文件头尾">文件头尾</h3><p>有些图片损坏是由于没有或不正确的文件头尾导致<br><code>PNG文件头:89 50 4E 47 0D 0A 1A 0A</code><br><code>png文件尾:49 45 4E 44 AE 42 60 82</code></p><h3 id="宽高修复">宽高修复</h3><p>IHDR前八个字节中有两个位对应图片宽高信息<br><img src="https://s2.loli.net/2024/07/25/NHFdtSsEB3618PK.png" alt=""><br>修改其值可将图片某部分信息隐藏</p><h3 id="IDAT块">IDAT块</h3><blockquote><p>IDAT定义：<br>图像数据块IDAT(image data chunk)：它存储实际的数据，在数据流中可包含多个连续顺序的图像数据块。<br>IDAT存放着图像真正的数据信息，因此，如果能够了解IDAT的结构，用户就可以很方便的生成PNG图像。</p></blockquote><p>IDAT有固定的长度，并且正常情况下最后一个idat块会比前面短<br>使用tweakPNG或其他工具可以进行idat块检查<br><img src="https://s2.loli.net/2024/07/25/kXZqPHdBzF3DxmG.png" alt=""><br>可以看到蓝色边框的idat块属于异常现象,实际上去除本块依然不会影响png图片,将蓝色部分IDAT块数据获取下来,重新补上文件头尾并爆破出正确宽高后可以得到新的一张PNG图片</p><h3 id="binwalk-foremost">binwalk|foremost</h3><p>有些文件可能藏于图片的数据中,例如在图片数据中插入zip文件数据:<br><img src="https://s2.loli.net/2024/07/25/x1ioQslHykThGZF.png" alt=""><br><code>binwalk -e 文件名</code> 可以分离文件</p><h2 id="颜色信道-常见lsb隐写">颜色信道(常见lsb隐写)</h2><h3 id="zsteg">zsteg</h3><blockquote><p>zsteg可以检测PNG和BMP图片里的隐写数据。</p></blockquote><p><code>zsteg -a 文件名</code>查看所有信道内容<br><code>zsteg -a 文件名 | grep &quot;flag&quot;</code>若flag直接明文藏于某信道则可以搭配条件查询</p><h3 id="stegsolve">stegsolve</h3><p>stegsolve很强大,可以展示多个颜色信道的图片,也可以查对应的十六进制数据<br><img src="https://s2.loli.net/2024/07/25/tbU1xOI9NpwRQ4a.png" alt=""><br><img src="https://s2.loli.net/2024/07/25/1UAWa9CtouY7kEj.png" alt=""></p><h2 id="其他工具">其他工具</h2><h3 id="steghide-stegseek">steghide/stegseek</h3><p>steghide支持多种格式文件，用于查看隐写的内容<br><code>steghide extract -sf xxx.png -p 密码</code></p><p>stegseek基于steghide开发，用于暴力破解密码<br><code>stegseek xxx.png '字典'（默认使用rockyou.txt）</code></p><p>steghide隐藏文件指令<br>steghide embed -cf 原文件 -ef 要隐藏的文件 -p 123456</p><h2 id="未完待续">未完待续</h2><p>参考:<br><a href="https://blog.csdn.net/brightendavid/article/details/115309922">IDAT block小结</a><br><a href="https://noahtie.github.io/2020/09/28/png%E6%96%87%E4%BB%B6%E7%BB%93%E6%9E%84/">PNG文件结构</a><br><a href="https://ctf-wiki.org/misc/picture/png/">https://ctf-wiki.org/misc/picture/png/</a><br><a href="https://blog.csdn.net/qq_42880719/article/details/114825260">ctfshow 8神PNG隐写入门(土)赛 WP</a></p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 笔记 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> CTF </tag>
+            
+            <tag> MISC </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>JWT</title>
       <link href="/posts/jwt.html"/>
       <url>/posts/jwt.html</url>

